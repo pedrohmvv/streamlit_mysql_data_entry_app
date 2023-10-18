@@ -1,4 +1,4 @@
-# **Aqui estão links para o README do projeto em português:**
+# **Aqui está o link para o README do projeto em português:**
 
 * ## [README em PORTUGUÊS](readmes/readme_pt.md)
 
