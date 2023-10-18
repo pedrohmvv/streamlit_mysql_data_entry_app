@@ -1,10 +1,10 @@
 class Database:
 
-    def __init__(self, host: str, user: str, database: str, table_name: str):
-        self.host: str = host
-        self.user: str = user
-        self.database: str = database
-        self.table_name: str = table_name
+    def __init__(self, host:str, user:str, database:str, table_name:str):
+        self.host:str = host
+        self.user:str = user
+        self.database:str = database
+        self.table_name:str = table_name
         self.details:dict[str] = {
             "Host": self.host,
             "User": self.user,
