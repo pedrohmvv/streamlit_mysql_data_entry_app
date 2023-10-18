@@ -14,16 +14,19 @@ class Database:
         self.data:dict[any] = {}
         self.state:bool = False
 
+    # Returns how many columns the table has
+    # Retorna o número de colunas da tabela
     def __len__(self) -> int:
-        # Returns the number of the table columns
         return len(self.data)
-
+   
+    # Returns the columns name
+    # Retorna o nome das colunas
     def __str__(self) -> dict:
-        # Returns the columns names
         return self.data.keys()
-
+    
+    # Connects into the database
+    # Conecta com o banco de dados
     def connect(self) -> bool:
-        # Connects into the database
         from pymysql import connect
         from streamlit import text_input
         self.__password:str = text_input("Enter your password: ", type='password')
@@ -39,8 +42,9 @@ class Database:
             return True
         return False
 
+    # Receive inputs from the user
+    # Recebe inputs do usuário
     def input_data(self) -> None:
-        # Receive inputs from the user
         from streamlit import (write, text_input, number_input)
         if self.state == True:
             query:str = f"DESCRIBE {self.table_name}"
@@ -79,8 +83,9 @@ class Database:
         else:
             write("Database not connected.")
 
+    # Shows the user the inputed data for confirmation
+    # Mostra os dados inputados pelo usuário para confirmação 
     def show_data(self) -> None:
-        # Shows the user the inputed data for confirmation
         from streamlit import write
         if self.state == True:
             from streamlit import write
@@ -89,9 +94,9 @@ class Database:
         else:
             write("Database not connected.")
 
-
+    # Insterts into the table selected the inputed data
+    # Insere os dados inputados na tabela
     def insert_data(self) -> bool:
-        # Insterts into the table selected the inputed data
         from streamlit import write
         if self.state == True:
             columns:str = ', '.join(self.data.keys())
@@ -106,8 +111,9 @@ class Database:
             write("Database not connected.")
         return False
 
+    # Shows the table after the insert
+    # Mostra a tabela após a inserção
     def show_table(self) -> None:
-        # Shows the table after the insert
         from streamlit import subheader, write
         if self.state == True: 
             from pandas import read_sql_query
@@ -118,8 +124,9 @@ class Database:
         else:
             write("Database not connected.")
 
+    # Disconnect from the database
+    # Desconecta do banco de dados
     def disconnect(self) -> bool:
-        # Disconnect from the datab ase
         self.connection.close()
         self.state = False
         return True
