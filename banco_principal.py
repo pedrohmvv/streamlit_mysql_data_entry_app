@@ -5,25 +5,28 @@ class Database:
         self.user: str = user
         self.database: str = database
         self.table_name: str = table_name
-        self.details:dict = {
+        self.details:dict[str] = {
             "Host": self.host,
             "User": self.user,
             "Database": self.database,
             "Table name": self.table_name
         }
-        self.data:dict = {}
+        self.data:dict[any] = {}
         self.state:bool = False
 
     def __len__(self) -> int:
+        # Returns the number of the table columns
         return len(self.data)
 
     def __str__(self) -> dict:
+        # Returns the columns names
         return self.data.keys()
 
     def connect(self) -> bool:
+        # Connects into the database
         from pymysql import connect
         from streamlit import text_input
-        self.__password: str = text_input("Enter your password: ", type='password')
+        self.__password:str = text_input("Enter your password: ", type='password')
         self.connection = connect(
             host=self.host,
             password=self.__password,
@@ -37,11 +40,12 @@ class Database:
         return False
 
     def input_data(self) -> None:
+        # Receive inputs from the user
         from streamlit import (write, text_input, number_input)
         if self.state == True:
             query:str = f"DESCRIBE {self.table_name}"
             self.cursor.execute(query)
-            columns_describe:list = [column for column in self.cursor.fetchall()]
+            columns_describe:list[str] = [column for column in self.cursor.fetchall()]
             write("Columns")
             for i in columns_describe:
                 write(f"Column: {i[0]} // Type: {i[1]}")
@@ -76,6 +80,7 @@ class Database:
             write("Database not connected.")
 
     def show_data(self) -> None:
+        # Shows the user the inputed data for confirmation
         from streamlit import write
         if self.state == True:
             from streamlit import write
@@ -86,6 +91,7 @@ class Database:
 
 
     def insert_data(self) -> bool:
+        # Insterts into the table selected the inputed data
         from streamlit import write
         if self.state == True:
             columns:str = ', '.join(self.data.keys())
@@ -101,6 +107,7 @@ class Database:
         return False
 
     def show_table(self) -> None:
+        # Shows the table after the insert
         from streamlit import subheader, write
         if self.state == True: 
             from pandas import read_sql_query
@@ -112,6 +119,7 @@ class Database:
             write("Database not connected.")
 
     def disconnect(self) -> bool:
+        # Disconnect from the datab ase
         self.connection.close()
         self.state = False
         return True
