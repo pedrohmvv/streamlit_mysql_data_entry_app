@@ -41,7 +41,7 @@ Lembrando que, para que o apicativo funcione na sua máquina, você precisa ter 
 * **1 - Clone o repositório:**
 
 ````bash
-git clone https://github.com/seu-usuario/seu-projeto.git
+git clone https://github.com/ricktherunner/streamlit_mysql_data_entry_app
 ````
 
 *  **2 - Navegue até o diretório do projeto:**
